@@ -1,0 +1,331 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\title{Adverse Weather Airplane Safety: Innovations with Machine Learning\\
+{\footnotesize \textsuperscript{*}}
+\thanks{Identify applicable funding agency here. If none, delete this.}
+}
+\makeatletter
+\newcommand{\linebreakand}{%
+  \end{@IEEEauthorhalign}
+  \hfill\mbox{}\par
+  \mbox{}\hfill\begin{@IEEEauthorhalign}
+}
+\makeatother
+
+\author{
+\IEEEauthorblockN{1\textsuperscript{st} Toki Tahmid} 
+\IEEEauthorblockA{
+\textit{Department of Urban and Regional Planning} \\
+\textit{Rajshahi University of Engineering and Technology}\\
+Rajshahi, Bangladesh \\
+tokitahmid3@gmail.com}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Md. Nahid Hasan} 
+\IEEEauthorblockA{
+\textit{Department of Mechanical Engineering} \\
+\textit{Rajshahi University of Engineering and Technology}\\
+Rajshahi, Bangladesh \\
+nahidhasann6688@gmail.com}
+  \linebreakand % <------------- \and with a line-break
+\IEEEauthorblockN{3\textsuperscript{rd} Md. Jafrul Hassan} 
+\IEEEauthorblockA{
+\textit{Department of Mechanical Engineering} \\
+\textit{Rajshahi University of Engineering and Technology} \\
+Rajshahi, Bangladesh \\
+1902100@student.ruet.ac.bd}
+}
+
+
+\begin{document}
+
+
+
+
+\maketitle
+
+\begin{abstract}
+Adverse weather plays a crucial role in ensuring safety by causing passenger flight cancellations. Misinformation can lead to fatalities, while improper maintenance may cause sudden, unpredictable flight cancellations, resulting in significant losses for both passengers and airline authorities. In this study , we predicted logistic regression model and correlation matrix to give a proper explanation of flight cancellation reasons.We also used random forest regression and SHAP to identify the features that most significantly affect flight cancellations. To research, we took the help of  Kaggle  data, ` \textbf{2015 Flight Delays and Cancellations'}  to work and give a predictive model to estimate the future probabilities of flight cancellation, specially due to adverse weather. The model shows 99.9\% accuracy, which gives a point of  trust  to predict the target feature. It describes every feature co-efficient related to the target feature.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Adverse Weather, Safety, Aviation safety,Logistic Regression,Random Forest Regression
+\end{IEEEkeywords}
+
+\section{Introduction}
+In every country, adverse weather conditions, including monsoons, cyclones, thunderstorms, and dense fog, badly affect the rapidly growing aviation industry. This condition seriously impacts  aviation safety, particularly in regions where turbulence, low visibility, and unpredictable weather are making flying very complicated. At the global level,  aviation accidents are connected with weather conditions; that is why such challenges should be overcome at any price.Various case studies highlight factors associated with adverse weather, which often cause disruptions among airlines due to sudden weather-related issues.Flights were canceled due to extreme weather conditions like precipitation, wind, and temperature extremes[30].This causes sudden flight cancellations, leading to passenger inconvenience.There has been some recent work to address which factor caused a lot of adverse weather and flight delays. It included decision trees, random forests, and multilayer perceptron  (MLP).The present study discusses the impact of adverse weather conditions on flight safety  and reviews the recent technological advances in weather monitoring, navigation systems, and operational procedures with Machine Learning (logistic regression, linear correlation) mainly and random forest regression for further study to search for important features.The paper not only presents safety protocols but also the effects of weather disruption on loss and preparedness for disasters. It puts forward some innovative solutions, such as AI-based weather prediction models, enhanced vision systems, and automation of flight resource allocation to improvise safety measures.
+\section{Literature review}
+The reviewed studies highlight various advancements  to aviation challenges. Vijayanandh Raja et al. (2021) developed an octocopter with a CD-duct for saltwater dispersion to enhance visibility, ensuring stability and material resilience via MATLAB, CATIA, and ANSYS Workbench analyses [1]. Feiteira (2021) employed data mining techniques to predict reasons of flight delays at Atlanta Airport, finding weather  as a critical factors, with Random Forest outperforming other models [3]. Borsky and Unterberger (2019) analyzed weather-induced departure delays, identifying up to 23-minute disruptions due to precipitation and wind [4]. Fultz and Ashley (2016) revealed weather's contribution to 35 percent of fatal general aviation accidents, emphasizing trends in time and geography [5]. Fujita and Caracena (1977) examined downbursts and wind shear as causes of weather-related aircraft accidents, introducing the "spearhead echo" phenomenon [7]. Balakrishnan’s study on resource allocation during adverse weather proposed market-based slot trading mechanisms for efficient landing slot management [9]. Barata et al. (2024) highlighted early 20th-century advancements in aircraft navigation tools by Portuguese navigators [11]. Fukui and Nagata (2014) critiqued the U.S. DOT's tarmac delay rule for increasing cancellations and delays [13]. Balaban et al. (2024) proposed a POMDP-based framework for robust route planning during adverse weather, outperforming deterministic methods [14]. Arthur et al. (2004) compared NASA’s EVS and SVS systems, demonstrating improved situational awareness in low visibility conditions [15]. These studies collectively underscore progress in UAV(unmanned Aerial Vehicle) design, aviation safety, and operational efficiency under challenging conditions.Thammisetty Venkata, ,Naga Radha Parameswari and K. Chandra Prasad (2024) [18] demonstrated that random forest regression outperformed logistic regression and decision trees in predicting machine failures and flight delays with the lowest error metrics. Somani et al. (2021) [19] found CART to be the most accurate for flight delay classification, achieving 99.15 percent accuracy. Manowon and Boonma (2023) [20] developed a batch data pipeline using Apache Airflow and identified random forest regressor as the most effective model for delay prediction. Eikelenboom and Santos (2023) [21] introduced an ML-based integrated disruption solver that reduced recovery costs and computation times during airline disruptions. Ballakur and Arya [22] applied LSTM and Bi-LSTM for quantifying delays, showing effectiveness despite dataset limitations. Henriques and Feiteira (2018) [23] utilized SMOTE to manage imbalanced data, with MLP emerging as the best model for delay predictions. Muros Anguita and Díaz Olariaga (2023) [24] highlighted deep learning's potential for optimizing air traffic and predicting delays. Alla et al. (2021) [25] used selective-data training with MLP to enhance accuracy in arrival delay prediction. Banavar Sridhar (2019) [26] provided a comprehensive overview of machine learning applications in air traffic management, emphasizing feature selection, data quality, and techniques to prevent overfitting. Chin et al. (2024) [27] addressed no-show passenger prediction using random forest and decision trees for improved operational efficiency. Finally, Kim et al. (2023) [28] employed multilayer complex networks to analyze aircraft cancellations due to adverse weather, revealing significant impacts of rainfall and node interactions in network dynamics.
+
+\section{AI-driven weather forecasting and flight optimization}
+To address this issue, we implemented logistic regression techniques along with  label encoder to estimate the probability of flight cancellations. It will also help to find the actual reason behind the cancellation.
+
+\subsection{Understanding Weather factor}\label{AA}
+To understand the reason behind flight cancellation a statistical factor[5] has been shown.The statistics summarize  weather-related general aviation accidents over a 32-year period and identifies the following as some of the major hazard categories: ceiling/visibility/precipitation, temperature/humidity/pressure, wind, turbulence, and convective weather. Of all weather-related accidents, wind was the most common hazard involved in such accidents(57\%),although only 7.8 percent of wind-related accidents were fatal. Ceiling, visibility, and precipitation hazards represented the highest percentage of fatalities-27.5 percent-and fatal accidents-66.9 percent-of any category. High percentages of deaths were shown within the categories of turbulence at 47. 7\% and convective weather at 64. 7\% fatalities in turbulence-related accidents and convective, respectively. Here we can see adverse weather played an important role  visibility  is the main fact behind flight cancellation in case of adverse weather.
+\subsection{Data pre-processing:}
+To do our research, we have collected  sample data from Kaggle to do a key regression task. Then label encoder is applied to convert the non-numerical into a numeric one.
+\subsection{Label Encoder and Logistic Regression:}
+Logistic Regression is a statistical model used for binary
+classification, predicting the probability that a given input belongs to one of two classes represents the probability of the positive class. The model is trained to minimize the log loss to align predicted probabilities with actual class labels.[16]
+On the other hand, Label Encoding is a method for converting categorical data into numerical data by assigning a unique integer to each category. This method is particularly useful when the categories have an ordinal relationship, though it can introduce unintended ordinal relationships if applied to nominal data.[8]
+\subsection{Random forest Regression:}
+Random Forest is a method that builds multiple decision trees during training and merges their predictions to improve accuracy . It uses random subsets of features for each tree to enhance diversity  in the model's predictions. It splits the data and takes the corresponding value to look at which feature contributes more to the output.[6]
+\subsection{SHAP (SHapley Additive exPlanations)}\label{SCM}
+SHAP is a powerful framework for interpreting machine learning models by calculating the impact of each feature on the model's predictions. SHAP values provide insights into how features influence predictions on an individual level, making them valuable for model transparency. By visualizing SHAP values, practitioners can identify which features drive decisions and how they interact with each other.[10]
+\subsection{Correlation Matrix}
+A correlation matrix is a table that displays the correlation coefficients between multiple variables, summarizing the strength and direction of their linear relationships. Each cell in the matrix shows the correlation value, ranging from -1 (perfect negative correlation) to 1 (perfect positive correlation), with 0 indicating no correlation. This matrix is useful for identifying patterns and relationships among variables, helping researchers and analysts understand the dynamics within their dataset. It also aids in detecting multicollinearity, which can affect the performance of regression models.[12]
+\subsection{Confusion Matrix}
+A confusion matrix is a performance evaluation tool used in classification tasks that compares the actual labels of a dataset with the predicted labels of a classification model. It breaks the results into four categories: True Positive (TP), where the model correctly predicts the positive class; False Positive (FP), where the model incorrectly predicts the positive class; True Negative (TN), where the model correctly predicts the negative class; and False Negative (FN), where the model incorrectly predicts the negative class. The confusion matrix helps calculate key metrics such as accuracy, precision, recall, and F1 score, providing a detailed view of the model's performance, identifying errors, and enabling better model optimization, especially in cases of imbalanced datasets.[29]
+
+\section{Flowchart of the entire process to control    with AI}\label{sec4}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{flow-chart.jpg} % Adjust width as needed
+    \caption{Flow chart of the entire flight control process.}
+    \label{Figure 1}
+\end{figure}
+\subsection{Forecast cancellations by analyzing past performance.}\label{subsec3}
+Provided by historical data, the logistic regression equation gives  a better analysis of forecast flight cancellations than traditional weather prediction methods. This model takes into account a wide variety of delay features as well as airline-specific and airport activity information in order to predict the likelihood that a flight will be canceled. This will make it possible to take data-driven decisions in real-time within the flight control centers. As such, the method predictively improves inaccuracy cancellations anticipate several factors which can come from the daily operation of operations beyond just weather-related ones,which would then make it an invaluable tool for anticipating cancels. This can make it easier for airline companies to make the proper schedule and give the certainty of the flight cancellation before several days, which can be a great sign of operational system. The accuracy of the given model is 99.9 percentage which gives a great assurance of predicting the future  and perfect mathematical simulation with ML .We predicted a logistic regression analyzing a Kaggle dataset given in [17]
+\section{Predicted Machine Learning EQUATIONS}
+\textbf{Accuracy:} 99.9\%
+\noindent \textbf{Main feature columns in the table:}
+\noindent YEAR, MONTH, DAY, DAY\_OF\_WEEK, AIRLINE, FLIGHT\_NUMBER, TAIL\_NUMBER, ORIGIN\_AIRPORT, DESTINATION\_AIRPORT, SCHEDULED\_DEPARTURE, DEPARTURE\_TIME, DEPARTURE\_DELAY, TAXI\_OUT, WHEELS\_OFF, SCHEDULED\_TIME, ELAPSED\_TIME, AIR\_TIME, DISTANCE, WHEELS\_ON, TAXI\_IN, SCHEDULED\_ARRIVAL, ARRIVAL\_TIME, ARRIVAL\_DELAY, DIVERTED, CANCELLATION\_REASON, AIR\_SYSTEM\_DELAY, SECURITY\_DELAY, AIRLINE\_DELAY, LATE\_AIRCRAFT\_DELAY, WEATHER\_DELAY.
+\subsection{ Logistic Regression:}\label{subsec3}
+\noindent \textbf{Coefficients of Logistic Equation}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Logistic Regression Coefficients for Flight Cancellation Prediction}
+    \label{tab:logistic_coefficients} % Label for referencing in the document
+    \begin{tabular}{|l|l|}
+    \hline
+        Feature Name & Coefficient \\ \hline
+        Intercept & -0.000552077 \\ \hline
+        YEAR & 0 \\ \hline
+        MONTH & -0.0069756 \\ \hline
+        DAY & -0.009185528 \\ \hline
+        DAY OF WEEK & -0.001770671 \\ \hline
+        AIRLINE & -0.002014157 \\ \hline
+        FLIGHT NUMBER & 0.000078875 \\ \hline
+        TAIL NUMBER & -0.000047177 \\ \hline
+        ORIGIN AIRPORT & -0.000190176 \\ \hline
+        DESTINATION AIRPORT & -0.00132268 \\ \hline
+        SCHEDULED DEPARTURE & 0.001697 \\ \hline
+        DEPARTURE TIME & -0.005643199 \\ \hline
+        DEPARTURE DELAY & 0.00310785 \\ \hline
+        TAXI OUT & -0.007189963 \\ \hline
+        WHEELS OFF & -0.013081281 \\ \hline
+        SCHEDULED TIME & -0.000045041 \\ \hline
+        ELAPSED TIME & -0.050743971 \\ \hline
+        AIR TIME & -0.037915582 \\ \hline
+        DISTANCE & -0.000679128 \\ \hline
+        WHEELS ON & 0.020362302 \\ \hline
+        TAXI IN & -0.008667429 \\ \hline
+        SCHEDULED ARRIVAL & 0.001329775 \\ \hline
+        ARRIVAL TIME & -0.003901765 \\ \hline
+        ARRIVAL DELAY & -0.0658628 \\ \hline
+        DIVERTED & -0.001147727 \\ \hline
+        CANCELLATION REASON & -0.00934325 \\ \hline
+        AIR SYSTEM DELAY & -0.002277167 \\ \hline
+        SECURITY DELAY & -0.00001174 \\ \hline
+        AIRLINE DELAY & -0.0090255 \\ \hline
+        LATE AIRCRAFT DELAY & -0.010285443 \\ \hline
+        WEATHER DELAY & -0.002022624 \\ \hline
+    \end{tabular}
+\end{table}
+
+\noindent \textbf{General Logistic Equation}
+\[
+P(CANCELLED=1) = \frac{1}{1 + e^{-(Y)}}
+\]
+\noindent \textbf{Where:}
+\noindent $Y(Linear Equation) = c + m_1x_1 + m_2x_2 + m_3x_3 + \dots$
+
+
+
+\begin{itemize}
+    \item $C$: Intercept
+    \item $M$: Coefficients of individual features
+    \item $X$: Feature values
+\end{itemize}
+
+\noindent Our team utilized multiple evaluation criteria to assess the efficacy of the suggested model.
+\noindent Accuracy = \(\frac{TP + TN}{TP + TN + FP + FN}\)
+\noindent where:
+\begin{itemize}
+    \item \textbf{TP}: True Positives
+    \item \textbf{TN}: True Negatives
+    \item \textbf{FP}: False Positives
+    \item \textbf{FN}: False Negatives
+\end{itemize}
+\subsection{Random forest  classification:}\label{subsec3}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{random-10.png} % Adjust width as needed
+    \caption{Random Forest Classification}
+    \label{fig:2}
+\end{figure}
+\subsection{SHAP-INTERPRETATION:}\label{subsec3}
+
+\begin{figure} [htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{shap-b.png} % Adjust width as needed
+    \caption{Shap-Interpretation of features affecting flight cancellation }
+    \label{fig:3}
+\end{figure}
+
+\subsection{Correlation matrix}\label{subsec4}
+
+\begin{figure} [htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{correlation-matrix.png} % Adjust width as needed
+    \caption{Correlation Matrix of features affect flight cancellation}
+    \label{fig:3}
+
+\end{figure}
+\section{Results}
+\noindent The equations and correlation matrix, with their high accuracy, provide confidence in predicting the reasons behind flight cancellations and allow sufficient time to implement appropriate solutions.The Logistic equation will give a certain amount of percentage, which will give an indication of future results.    
+\noindent   The Random Forest regression also provides a view to look for future research to find the way to overcome the problems faced in regular time arrival. The given logistic regression model predicts flight cancellations with high accuracy by a rich feature set, including flight details, delays, operational timings, and environmental factors. Each feature's coefficient reflects its real-world impact, with delays like ARRIVAL\_DELAY showing significant influence. The model's probabilistic approach ensures reliability when trained on balanced and representative data. But regular updates and monitoring are essential to maintain accuracy for potential changes in operational or environmental conditions. It can impact flight slots in several ways. If a flight is canceled well in advance, the allocated slot becomes vacant, providing an opportunity for another airline to request and use that slot. On the contrary, if a flight is canceled close to its scheduled time, it can lead to operational disruptions, causing delays for other flights and affecting shared resources such as gates, runways, and air traffic control. The impact on slots is influenced by specific slot allocation rules set by different airports and aviation authorities, which may include mechanisms to redistribute vacant slots among airlines or immediate reassignment procedures. Frequent cancellations can undermine the schedule's reliability and integrity, affecting passengers, connecting flights, and overall airline operational efficiency. So this model can give a hand to give warning of prior sudden flight cancellation.
+
+\noindent As this equation helps to get the appropriate reason behind flight cancellation ,it can be used for slot allocation as well.
+
+\noindent We used a confusion matrix of number of rows=100000, as the whole dataset crashed the environment to code.
+\subsection{Confusion matrix:}\label{subsec5}
+\begin{center}
+\noindent [9738    0]
+
+\noindent  [   0  262]
+
+\end{center}
+
+ 
+The confusion matrix represents the performance of a binary classification model, showing 9738 True Negatives (instances where the actual class was 0, and the model correctly predicted 0), 0 False Positives (instances where the actual class was 0, but the model incorrectly predicted 1), 0 False Negatives (instances where the actual class was 1, but the model incorrectly predicted 0), and 262 True Positives (instances where the actual class was 1, and the model correctly predicted 1).
+\begin{figure} [htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{confusion-matrix.png} % Adjust width as needed
+    \caption{Confusion Matrix}
+    \label{fig:3}
+
+
+\noindent
+\begin{align*}
+\text{Precision} &= \frac{\text{TP}}{\text{TP} + \text{FP}} = \frac{262}{262 + 0} = 1.0 \\
+\text{Recall} &= \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{262}{262 + 0} = 1.0 \\
+\text{Specificity} &= \frac{\text{TN}}{\text{TN} + \text{FP}} = \frac{9738}{9738 + 0} = 1.0
+\end{align*}
+
+\end{figure}
+\subsection{Additional solutions to help flight control management in terms of adverse weather}\label{subsec5}
+\noindent Enhancing airport safety and efficiency through various strategies, including integrating Enhanced Vision Systems and LED lights[15] for better visibility, and using octocopters for fog removal[1]. It highlights the importance of wind safety measures, utilizing advanced sensors and real-time hazard communication to pilots[5]. Additionally, it explores market-based approaches for reallocating flight resources during adverse weather, focusing on both non-monetary and payment-based slot trading schemes[9]. The paper also addresses the complexities of slot allocation mechanisms during Ground Delay Programs (GDPs), proposing algorithms for fair and efficient slot reallocation. Lastly, it emphasizes the need for stable allocations and minimizing airline manipulation in these processes.
+\subsection{Comparison to other model}\label{subsec5}
+\noindent Logistic Regression predicts more quickly than tree diagram like Random Forest Regression[6] .Besides, in this predicted equation,it defines the exact coefficients of each feature that impact flight cancellation. In fact compared to normal tree base structure, the equations give a combination of every feature co-efficient which gives a combined result of flight cancellation 
+\begin{table}[!ht]
+    \centering
+    \caption{Comparison of Different Machine Learning Models for Prediction Accuracy}
+    \label{tab:model_comparison} % Label for referencing in the document
+    \begin{tabular}{|l|l|}
+    \hline
+        Study(Ref) & Methodology \\ \hline
+        Somani[19] & Cart [99.15\% accuracy] \\ \hline
+        Chin et al.[27] & Random Forest [90.4\% accuracy] \\ \hline
+        ~ & Decision Tree [90.2\% accuracy] \\ \hline
+        ~ & Gradient Boosting [86.5\% accuracy] \\ \hline
+        ~ & Neural Network [67.6\% accuracy] \\ \hline
+        Our study & Logistic [99.9\% accuracy] \\ \hline
+    \end{tabular}
+\end{table}
+
+
+\section{Conclusion}\label{sec7}
+\noindent Adverse weather significantly impacts flight cancellations and delays, making it a critical concern for aviation safety and operational efficiency. This study effectively demonstrates the application of machine learning techniques, particularly logistic regression, in predicting flight cancellations with high accuracy. By using historical data and integrating feature importance analysis through SHAP and correlation matrices,the findings emphasize the importance of proactive measures, such as advanced weather monitoring, improved scheduling strategies, and real-time data-driven decision-making, to mitigate disruptions caused by  various challenges. Implementing such predictive models can enhance operational planning, reduce passenger inconvenience, and improve overall safety and reliability in the aviation industry.
+
+\section{Acknowledgment}\label{sec7}
+While this study demonstrates the potential of machine learning in predicting flight cancellations, we acknowledge the need for further research. Future work should focus on expanding the dataset with real time experiment.
+
+\section{References}\label{sec7}
+\noindent [1] V. Raja, S. K. Solaiappan, P. Rajendran, S. K. Madasamy, and S. Jung, ``Conceptual design and multi-disciplinary computational investigations of multirotor unmanned aerial vehicle for environmental applications,'' \textit{Applied Sciences (Switzerland)}, vol. 11, no. 18, Sep. 2021, doi: 10.3390/app11188364.
+
+\noindent [2] R. G. Hallowell and J. Y. N. Cho, ``Wind-Shear System Cost-Benefit Analysis,'' 2010.
+
+\noindent [3] ``Predictive Modelling: Flight Delays and Associated Factors.''
+
+\noindent [4] S. Borsky and C. Unterberger, ``Bad weather and flight delays: The impact of sudden and slow onset weather events,'' \textit{Economics of Transportation}, vol. 18, pp. 10--26, Jun. 2019, doi: 10.1016/j.ecotra.2019.02.002.
+
+\noindent [5] A. J. Fultz and W. S. Ashley, ``Fatal weather-related general aviation accidents in the United States,'' \textit{Phys Geogr}, vol. 37, no. 5, pp. 291--312, Sep. 2016, doi: 10.1080/02723646.2016.1211854.
+
+\noindent [6] F. Hajipour, M. J. Jozani, and Z. Moussavi, ``A comparison of regularized logistic regression and random forest machine learning models for daytime diagnosis of obstructive sleep apnea,'' \textit{Med Biol Eng Comput}, vol. 58, no. 10, pp. 2517--2529, Oct. 2020, doi: 10.1007/s11517-020-02206-9.
+
+\noindent [7] ``An analysis of three weather-related aircraft accidents''.
+
+\noindent [8] B.-B. Jia and M.-L. Zhang, ``Multi-Dimensional Classification via Decomposed Label Encoding.''
+
+\noindent [9] H. Balakrishnan, ``Techniques for Reallocating Airport Resources during Adverse Weather.''
+
+\noindent [10] D. Bowen and L. Ungar, ``Generalized SHAP: Generating multiple types of explanations in machine learning,'' Jun. 2020, [Online]. Available: http://arxiv.org/abs/2006.07155
+
+\noindent [11] J. M. M. Barata, A. L. M. Mendes, C. M. P. Morgado, F. M. S. P. Neves, and A. R. R. Silva, ``The Origins of Scientific Aircraft Navigation,'' 2009.
+
+\noindent [12] ``correlations''.
+
+\noindent [13] H. Fukui and K. Nagata, ``Flight cancellation as a reaction to the tarmac delay rule: An unintended consequence of enhanced passenger protection,'' \textit{Economics of Transportation}, vol. 3, no. 1, pp. 29--44, 2014, doi: 10.1016/j.ecotra.2014.02.004.
+
+\noindent [14] E. Balaban, I. Roychoudhury, L. Spirkovska, S. Sankararaman, C. Kulkarni, and T. Arnon, ``Dynamic routing of aircraft in the presence of adverse weather using a POMDP framework,'' in \textit{17th AIAA Aviation Technology, Integration, and Operations Conference, 2017}, American Institute of Aeronautics and Astronautics Inc, AIAA, 2017. doi: 10.2514/6.2017-3429.
+
+\noindent [15] J. J. Arthur III, L. J. Kramer, and R. E. Bailey, ``$\mathrm{<}$title$\mathrm{>}$Flight test comparison between enhanced vision (FLIR) and synthetic vision systems$\mathrm{<}$/title$\mathrm{>}$,'' in \textit{Enhanced and Synthetic Vision 2005}, SPIE, May 2005, pp. 25--36. doi: 10.1117/12.604363.
+
+\noindent [16] ``Applied\_Logistic\_Regression''.
+
+\noindent [17] \textbf{Department of Transportation~and 1 collaborator,} \textbf{2015 Flight Delays and Cancellations,} \textbf{https://www.kaggle.com/datasets/usdot/flight-delays?select=flights.csv}
+
+\noindent [18]      Naga, T. V., Parameswari, R., \& Chandra Prasad, K. (2024). \textit{JOURNAL OF BASIC SCIENCE AND ENGINEERING 1326 DEVELOPING A FLIGHT DELAY PREDICTION MODEL USING MACHINE LEARNING}. \textit{21}\eqref{GrindEQ__1_}.
+
+\noindent 
+
+\noindent [19]   Somani, S., Pandey, ; Priyanshu, Sharma, ; Meghna, \& Safa, ; M. (2021). \textit{An Approach of Applying Machine Learning Model in Flight Delay Prediction-A Comparative Analysis}. \textit{11}\eqref{GrindEQ__3_}, 2237--0722.
+
+\noindent [20] Manowon, S., \& Boonma, P. (n.d.). Development of Batch Data Pipeline System for Flight Delay Prediction. In \textit{Data Science and Engineering (DSE) Record} (Vol. 4, Issue 1).
+
+\noindent [21]  Eikelenboom, B., \& Santos, B. F. (2023). \textit{A Decision-Support Tool for the Integrated Airline Recovery using a Machine Learning Resources Selection Approach}. https://ssrn.com/abstract=4519717
+
+\noindent [22] Ballakur, A. A., \& Arya, A. (2020, October 14). Empirical evaluation of gated recurrent neural network architectures in aviation delay prediction. \textit{Proceedings of the 2020 International Conference on Computing, Communication and Security, ICCCS 2020}. https://doi.org/10.1109/ICCCS49678.2020.9276855
+
+\noindent [23] Henriques, R., \& Feiteira, I. (2018). Predictive modelling: Flight delays and associated factors, Hartsfield-Jackson Atlanta international airport. \textit{Procedia Computer Science}, \textit{138}, 638--645. https://doi.org/10.1016/j.procs.2018.10.085
+
+\noindent 
+
+\noindent [24]  Muros Anguita, J. G., \& D\'{i}az Olariaga, O. (2023). Prediction of departure flight delays through the use of predictive tools based on machine learning/deep learning algorithms. \textit{Aeronautical Journal}, \textit{18}\eqref{GrindEQ__1_}. https://doi.org/10.1017/aer.2023.41
+
+\noindent [25]  Alla, H., Moumoun, L., \& Balouki, Y. (2021). A Multilayer Perceptron Neural Network with Selective-Data Training for Flight Arrival Delay Prediction. \textit{Scientific Programming}, \textit{2021}. https://doi.org/10.1155/2021/5558918
+
+\noindent [26] Sridhar, B. (n.d.). \textit{Application of Machine Learning Techniques to Aviation Operations: Promises and Challenges}.
+
+\noindent [27] Chin, W.-S., Ting, C.-Y., \& Cham, C.-L. (n.d.). \textit{INTERNATIONAL JOURNAL ON INFORMATICS VISUALIZATION journal homepage: www.joiv.org/index.php/joiv INTERNATIONAL JOURNAL ON INFORMATICS VISUALIZATION No-Show Passenger Prediction for Flights}. \url{www.joiv.org/index.php/joiv}
+
+
+
+\noindent [28]  Kim, K., Lee, H., Lee, M., Bae, Y. H., Kim, H. S., \& Kim, S. (2023). Analysis of Weather Factors on Aircraft Cancellation using a Multilayer Complex Network. \textit{Entropy}, \textit{25}\eqref{GrindEQ__8_}. https://doi.org/10.3390/e25081209
+
+\noindent 
+
+\noindent 
+
+\noindent [29]  Heydarian, M., Doyle, T. E., \& Samavi, R. (2022). MLCM: Multi-Label Confusion Matrix. \textit{IEEE Access}, \textit{10}, 19083--19095. https://doi.org/10.1109/ACCESS.2022.3151048
+
+\noindent [30] Bombelli, A., \& Sallan, J. M. (2023). Analysis of the effect of extreme weather on the US domestic air network. A delay and cancellation propagation network approach. \textit{Journal of Transport Geography, 107}, 103541. \url{https://doi.org/10.1016/j.jtrangeo.2023.103541}
+
+
+
+
+
+
+\end{document}
